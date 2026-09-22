@@ -1,0 +1,43 @@
+services:
+
+  db:
+    image: postgres:16
+
+    container_name: peludos_db
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: peludos_user
+      POSTGRES_PASSWORD: peludos_pass
+      POSTGRES_DB: peludos_db
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - peludos_pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+
+    container_name: peludos_api
+
+    restart: always
+
+    env_file:
+      - .env
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - .:/app
+
+    depends_on:
+      - db
+
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  peludos_pgdata:
