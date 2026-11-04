@@ -1,0 +1,103 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/usuarios/me"
+  method: PATCH
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  body:
+    type: json
+    content: |-
+      {
+        "nombre_completo": "string",
+        "telefono": null,
+        "direccion": "string"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "nombre_completo": "string",
+        "correo_electronico": "cVIZOcA23m@aGeJsEEvgACdXpwRHOOsIgDK.ilro",
+        "id_usuario": 4781,
+        "rol": "string",
+        "activo": false,
+        "fecha_registro": "2011-10-11T03:02:30.685Z",
+        "telefono": "string",
+        "direccion": null
+      }
+    $type: |-
+      {
+        "description": "Lo que se devuelve al cliente. NUNCA incluye contrasena_hash.",
+        "title": "UsuarioResponse",
+        "type": "object",
+        "properties": {
+          "nombre_completo": {
+            "type": "string",
+            "title": "Nombre Completo"
+          },
+          "correo_electronico": {
+            "type": "string",
+            "title": "Correo Electronico",
+            "format": "email"
+          },
+          "telefono": {
+            "title": "Telefono",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "direccion": {
+            "title": "Direccion",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id_usuario": {
+            "type": "integer",
+            "title": "Id Usuario"
+          },
+          "rol": {
+            "type": "string",
+            "title": "Rol"
+          },
+          "activo": {
+            "type": "boolean",
+            "title": "Activo"
+          },
+          "fecha_registro": {
+            "type": "string",
+            "title": "Fecha Registro",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "nombre_completo",
+          "correo_electronico",
+          "id_usuario",
+          "rol",
+          "activo",
+          "fecha_registro"
+        ]
+      }
+order: 1000

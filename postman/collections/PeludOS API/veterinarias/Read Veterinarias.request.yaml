@@ -1,0 +1,17 @@
+$kind: http-request
+description: Lista las veterinarias activas. Disponible para cualquier usuario autenticado.
+url: "{{baseUrl}}/veterinarias/"
+method: GET
+headers:
+  Accept: application/json
+body:
+  type: text
+  content: ""
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Read Veterinarias.resources/examples
+order: 1000

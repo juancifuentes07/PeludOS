@@ -1,0 +1,134 @@
+$kind: http-request
+description: Actualiza un profesional (actualización parcial). Requiere rol admin.
+url: "{{baseUrl}}/veterinarias/:id_veterinaria/profesionales/:id_profesional"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: id_veterinaria
+    value: "1327"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Veterinaria",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+  - key: id_profesional
+    value: "8683"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Profesional",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: json
+  content: |-
+    {
+      "nombre_completo": null,
+      "especialidad": "string",
+      "numero_registro_profesional": "string",
+      "telefono": null,
+      "correo_electronico": "string",
+      "activo": null
+    }
+  $type: |-
+    {
+      "title": "ProfesionalUpdate",
+      "type": "object",
+      "properties": {
+        "nombre_completo": {
+          "title": "Nombre Completo",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "especialidad": {
+          "title": "Especialidad",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "numero_registro_profesional": {
+          "title": "Numero Registro Profesional",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "telefono": {
+          "title": "Telefono",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "correo_electronico": {
+          "title": "Correo Electronico",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "activo": {
+          "title": "Activo",
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Update Existing Profesional.resources/examples
+order: 1000

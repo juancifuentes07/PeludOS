@@ -1,0 +1,195 @@
+$kind: http-request
+description: |-
+  Actualiza los datos de una mascota del usuario autenticado
+  (actualización parcial).
+url: "{{baseUrl}}/mascotas/:id_mascota"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: id_mascota
+    value: "8533"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Mascota",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "string",
+      "especie": null,
+      "raza": "string",
+      "sexo": "string",
+      "fecha_nacimiento": "1996-10-20",
+      "peso_kg": null,
+      "color_mascota": null,
+      "numero_chip": null,
+      "foto_url": null,
+      "alergias": null,
+      "condiciones_medicas": "string",
+      "activo": false
+    }
+  $type: |-
+    {
+      "title": "MascotaUpdate",
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "title": "Nombre",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "especie": {
+          "title": "Especie",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "raza": {
+          "title": "Raza",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sexo": {
+          "title": "Sexo",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fecha_nacimiento": {
+          "title": "Fecha Nacimiento",
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "peso_kg": {
+          "title": "Peso Kg",
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "color_mascota": {
+          "title": "Color Mascota",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "numero_chip": {
+          "title": "Numero Chip",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "foto_url": {
+          "title": "Foto Url",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "alergias": {
+          "title": "Alergias",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "condiciones_medicas": {
+          "title": "Condiciones Medicas",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "activo": {
+          "title": "Activo",
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Update Existing Mascota.resources/examples
+order: 4000

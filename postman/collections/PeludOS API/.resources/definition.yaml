@@ -1,0 +1,10 @@
+$kind: collection
+description: API para la plataforma de cuidado de mascotas
+variables:
+  baseUrl: /
+auth:
+  - id: e1185b4c-c0e1-4fa7-a48d-53d9d0fde6af
+    type: bearer
+    name: Bearer Token
+    credentials:
+      token: "{{token}}"

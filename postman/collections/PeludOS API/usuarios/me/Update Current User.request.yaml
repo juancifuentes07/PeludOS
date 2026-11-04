@@ -1,0 +1,64 @@
+$kind: http-request
+description: Actualiza los datos del usuario autenticado (actualización parcial).
+url: "{{baseUrl}}/usuarios/me"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nombre_completo": "string",
+      "telefono": null,
+      "direccion": "string"
+    }
+  $type: |-
+    {
+      "description": "Campos que un usuario puede actualizar de su propio perfil. Todos opcionales.",
+      "title": "UsuarioUpdate",
+      "type": "object",
+      "properties": {
+        "nombre_completo": {
+          "title": "Nombre Completo",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "telefono": {
+          "title": "Telefono",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "direccion": {
+          "title": "Direccion",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Update Current User.resources/examples
+order: 3000

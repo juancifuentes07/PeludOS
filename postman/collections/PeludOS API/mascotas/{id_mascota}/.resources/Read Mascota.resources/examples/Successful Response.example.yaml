@@ -1,0 +1,102 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/mascotas/:id_mascota"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  pathVariables:
+    id_mascota: "8533"
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "nombre": "string",
+        "especie": "string",
+        "id_mascota": 4530,
+        "id_usuario": 691,
+        "activo": false,
+        "raza": "string",
+        "sexo": "string",
+        "fecha_nacimiento": "1979-09-23",
+        "peso_kg": "string",
+        "color_mascota": "string",
+        "numero_chip": "string",
+        "foto_url": "string",
+        "alergias": "string",
+        "condiciones_medicas": "string"
+      }
+    $type: |-
+      {
+        "title": "MascotaResponse",
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "title": "Nombre"
+          },
+          "especie": {
+            "type": "string",
+            "title": "Especie"
+          },
+          "raza": {
+            "type": "string"
+          },
+          "sexo": {
+            "type": "string"
+          },
+          "fecha_nacimiento": {
+            "type": "string",
+            "format": "date"
+          },
+          "peso_kg": {
+            "type": "string"
+          },
+          "color_mascota": {
+            "type": "string"
+          },
+          "numero_chip": {
+            "type": "string"
+          },
+          "foto_url": {
+            "type": "string"
+          },
+          "alergias": {
+            "type": "string"
+          },
+          "condiciones_medicas": {
+            "type": "string"
+          },
+          "id_mascota": {
+            "type": "integer",
+            "title": "Id Mascota"
+          },
+          "id_usuario": {
+            "type": "integer",
+            "title": "Id Usuario"
+          },
+          "activo": {
+            "type": "boolean",
+            "title": "Activo"
+          }
+        },
+        "required": [
+          "nombre",
+          "especie",
+          "id_mascota",
+          "id_usuario",
+          "activo"
+        ]
+      }
+order: 1000

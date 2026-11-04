@@ -1,0 +1,100 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/auth/register"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "nombre_completo": "string",
+        "correo_electronico": "oenf5xkgtKa3T@LKvsmTdYYHwIThIemMNlQKfDCwIaCSW.pnt",
+        "contrasena": "string",
+        "telefono": "string",
+        "direccion": "string"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "nombre_completo": "string",
+        "correo_electronico": "cVIZOcA23m@aGeJsEEvgACdXpwRHOOsIgDK.ilro",
+        "id_usuario": 4781,
+        "rol": "string",
+        "activo": false,
+        "fecha_registro": "2011-10-11T03:02:30.685Z",
+        "telefono": "string",
+        "direccion": null
+      }
+    $type: |-
+      {
+        "description": "Lo que se devuelve al cliente. NUNCA incluye contrasena_hash.",
+        "title": "UsuarioResponse",
+        "type": "object",
+        "properties": {
+          "nombre_completo": {
+            "type": "string",
+            "title": "Nombre Completo"
+          },
+          "correo_electronico": {
+            "type": "string",
+            "title": "Correo Electronico",
+            "format": "email"
+          },
+          "telefono": {
+            "title": "Telefono",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "direccion": {
+            "title": "Direccion",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id_usuario": {
+            "type": "integer",
+            "title": "Id Usuario"
+          },
+          "rol": {
+            "type": "string",
+            "title": "Rol"
+          },
+          "activo": {
+            "type": "boolean",
+            "title": "Activo"
+          },
+          "fecha_registro": {
+            "type": "string",
+            "title": "Fecha Registro",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "nombre_completo",
+          "correo_electronico",
+          "id_usuario",
+          "rol",
+          "activo",
+          "fecha_registro"
+        ]
+      }
+order: 1000

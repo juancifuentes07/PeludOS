@@ -1,0 +1,158 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/mascotas/:id_mascota/medicamentos/"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  pathVariables:
+    id_mascota: "8533"
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id_mascota": 261,
+          "nombre_medicamento": "string",
+          "fecha_inicio": "1968-03-23",
+          "id_medicamento": 805,
+          "activo": false,
+          "id_recordatorio": 3638,
+          "dosis": "string",
+          "unidad_medida": "string",
+          "frecuencia_administracion": "string",
+          "fecha_fin": "1948-05-09",
+          "observaciones": "string"
+        },
+        {
+          "id_mascota": 6538,
+          "nombre_medicamento": "string",
+          "fecha_inicio": "2003-06-20",
+          "id_medicamento": 5699,
+          "activo": false,
+          "id_recordatorio": 5093,
+          "dosis": "string",
+          "unidad_medida": "string",
+          "frecuencia_administracion": "string",
+          "fecha_fin": "2001-03-18",
+          "observaciones": "string"
+        }
+      ]
+    $type: |-
+      {
+        "type": "array",
+        "title": "Response Read Medicamentos Mascotas  Id Mascota  Medicamentos  Get",
+        "items": {
+          "title": "MedicamentoResponse",
+          "type": "object",
+          "properties": {
+            "id_mascota": {
+              "type": "integer",
+              "title": "Id Mascota"
+            },
+            "id_recordatorio": {
+              "title": "Id Recordatorio",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "nombre_medicamento": {
+              "type": "string",
+              "title": "Nombre Medicamento"
+            },
+            "dosis": {
+              "title": "Dosis",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "unidad_medida": {
+              "title": "Unidad Medida",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "frecuencia_administracion": {
+              "title": "Frecuencia Administracion",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "fecha_inicio": {
+              "type": "string",
+              "title": "Fecha Inicio",
+              "format": "date"
+            },
+            "fecha_fin": {
+              "title": "Fecha Fin",
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "observaciones": {
+              "title": "Observaciones",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "id_medicamento": {
+              "type": "integer",
+              "title": "Id Medicamento"
+            },
+            "activo": {
+              "type": "boolean",
+              "title": "Activo"
+            }
+          },
+          "required": [
+            "id_mascota",
+            "nombre_medicamento",
+            "fecha_inicio",
+            "id_medicamento",
+            "activo"
+          ]
+        }
+      }
+order: 1000

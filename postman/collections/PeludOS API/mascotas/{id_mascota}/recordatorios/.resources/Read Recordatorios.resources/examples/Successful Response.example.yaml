@@ -1,0 +1,141 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/mascotas/:id_mascota/recordatorios/"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  pathVariables:
+    id_mascota: "8533"
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id_mascota": 7423,
+          "titulo": "string",
+          "tipo": "string",
+          "fecha_programada": "1955-03-12T00:18:45.762Z",
+          "id_recordatorio": 85,
+          "notificado": false,
+          "activo": true,
+          "fecha_creacion": "2011-06-23T22:49:18.667Z",
+          "descripcion": "string",
+          "frecuencia": "string",
+          "fecha_notificacion": "1982-05-10T03:36:40.793Z"
+        },
+        {
+          "id_mascota": 2627,
+          "titulo": "string",
+          "tipo": "string",
+          "fecha_programada": "1964-01-24T04:48:45.892Z",
+          "id_recordatorio": 8551,
+          "notificado": true,
+          "activo": true,
+          "fecha_creacion": "2019-11-13T07:21:03.602Z",
+          "descripcion": "string",
+          "frecuencia": "string",
+          "fecha_notificacion": "1973-07-16T12:46:40.685Z"
+        }
+      ]
+    $type: |-
+      {
+        "type": "array",
+        "title": "Response Read Recordatorios Mascotas  Id Mascota  Recordatorios  Get",
+        "items": {
+          "title": "RecordatorioResponse",
+          "type": "object",
+          "properties": {
+            "id_mascota": {
+              "type": "integer",
+              "title": "Id Mascota"
+            },
+            "titulo": {
+              "type": "string",
+              "title": "Titulo"
+            },
+            "descripcion": {
+              "title": "Descripcion",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tipo": {
+              "type": "string",
+              "title": "Tipo"
+            },
+            "fecha_programada": {
+              "type": "string",
+              "title": "Fecha Programada",
+              "format": "date-time"
+            },
+            "frecuencia": {
+              "title": "Frecuencia",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "id_recordatorio": {
+              "type": "integer",
+              "title": "Id Recordatorio"
+            },
+            "notificado": {
+              "type": "boolean",
+              "title": "Notificado"
+            },
+            "fecha_notificacion": {
+              "title": "Fecha Notificacion",
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "activo": {
+              "type": "boolean",
+              "title": "Activo"
+            },
+            "fecha_creacion": {
+              "type": "string",
+              "title": "Fecha Creacion",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id_mascota",
+            "titulo",
+            "tipo",
+            "fecha_programada",
+            "id_recordatorio",
+            "notificado",
+            "activo",
+            "fecha_creacion"
+          ]
+        }
+      }
+order: 1000

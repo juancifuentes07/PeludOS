@@ -1,0 +1,101 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/mascotas/:id_mascota/vacunas/:id_vacuna"
+  method: PATCH
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  pathVariables:
+    id_mascota: "8533"
+    id_vacuna: "6854"
+  body:
+    type: json
+    content: |-
+      {
+        "id_recordatorio": null,
+        "nombre_vacuna": null,
+        "fecha_aplicacion": null,
+        "fecha_proxima_dosis": "1996-05-20",
+        "numero_dosis": 2450,
+        "lote": "string",
+        "veterinario_nombre": "string"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id_mascota": 2258,
+        "nombre_vacuna": "string",
+        "fecha_aplicacion": "1981-07-11",
+        "id_vacuna": 4374,
+        "fecha_creacion": "1949-04-14T23:58:15.462Z",
+        "id_recordatorio": 460,
+        "fecha_proxima_dosis": "2020-07-14",
+        "numero_dosis": 1,
+        "lote": "string",
+        "veterinario_nombre": "string"
+      }
+    $type: |-
+      {
+        "title": "VacunaResponse",
+        "type": "object",
+        "properties": {
+          "id_mascota": {
+            "type": "integer",
+            "title": "Id Mascota"
+          },
+          "id_recordatorio": {
+            "type": "integer"
+          },
+          "nombre_vacuna": {
+            "type": "string",
+            "title": "Nombre Vacuna"
+          },
+          "fecha_aplicacion": {
+            "type": "string",
+            "title": "Fecha Aplicacion",
+            "format": "date"
+          },
+          "fecha_proxima_dosis": {
+            "type": "string",
+            "format": "date"
+          },
+          "numero_dosis": {
+            "type": "integer",
+            "title": "Numero Dosis"
+          },
+          "lote": {
+            "type": "string"
+          },
+          "veterinario_nombre": {
+            "type": "string"
+          },
+          "id_vacuna": {
+            "type": "integer",
+            "title": "Id Vacuna"
+          },
+          "fecha_creacion": {
+            "type": "string",
+            "title": "Fecha Creacion",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id_mascota",
+          "nombre_vacuna",
+          "fecha_aplicacion",
+          "id_vacuna",
+          "fecha_creacion"
+        ]
+      }
+order: 1000

@@ -1,0 +1,18 @@
+$kind: http-request
+name: http://localhost:8000/auth/login
+description: ""
+url: http://localhost:8000/auth/login
+method: POST
+body:
+  type: urlencoded
+  content:
+    grant_type: password
+    username: juancifuentestz@gmail.com
+    password: Juan1013.
+scripts:
+  - type: afterResponse
+    code: "const response = pm.response.json();\r
+
+      pm.environment.set(\"token\", response.access_token);"
+    language: text/javascript
+order: 2454856330641862

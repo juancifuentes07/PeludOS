@@ -1,0 +1,148 @@
+$kind: http-request
+description: Actualiza una vacuna (actualización parcial).
+url: "{{baseUrl}}/mascotas/:id_mascota/vacunas/:id_vacuna"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: id_mascota
+    value: "8533"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Mascota",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+  - key: id_vacuna
+    value: "6854"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Vacuna",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: json
+  content: |-
+    {
+      "id_recordatorio": null,
+      "nombre_vacuna": null,
+      "fecha_aplicacion": null,
+      "fecha_proxima_dosis": "1996-05-20",
+      "numero_dosis": 2450,
+      "lote": "string",
+      "veterinario_nombre": "string"
+    }
+  $type: |-
+    {
+      "title": "VacunaUpdate",
+      "type": "object",
+      "properties": {
+        "id_recordatorio": {
+          "title": "Id Recordatorio",
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nombre_vacuna": {
+          "title": "Nombre Vacuna",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fecha_aplicacion": {
+          "title": "Fecha Aplicacion",
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fecha_proxima_dosis": {
+          "title": "Fecha Proxima Dosis",
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "numero_dosis": {
+          "title": "Numero Dosis",
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lote": {
+          "title": "Lote",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "veterinario_nombre": {
+          "title": "Veterinario Nombre",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Update Existing Vacuna.resources/examples
+order: 2000

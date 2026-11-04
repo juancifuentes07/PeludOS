@@ -1,0 +1,194 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/mascotas/"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "nombre": "string",
+          "especie": "string",
+          "id_mascota": 6533,
+          "id_usuario": 4912,
+          "activo": true,
+          "raza": "string",
+          "sexo": "string",
+          "fecha_nacimiento": "2004-11-10",
+          "peso_kg": "string",
+          "color_mascota": "string",
+          "numero_chip": "string",
+          "foto_url": "string",
+          "alergias": "string",
+          "condiciones_medicas": "string"
+        },
+        {
+          "nombre": "string",
+          "especie": "string",
+          "id_mascota": 7577,
+          "id_usuario": 633,
+          "activo": false,
+          "raza": "string",
+          "sexo": "string",
+          "fecha_nacimiento": "1973-12-16",
+          "peso_kg": "string",
+          "color_mascota": "string",
+          "numero_chip": "string",
+          "foto_url": "string",
+          "alergias": "string",
+          "condiciones_medicas": "string"
+        }
+      ]
+    $type: |-
+      {
+        "type": "array",
+        "title": "Response Read Mascotas Mascotas  Get",
+        "items": {
+          "title": "MascotaResponse",
+          "type": "object",
+          "properties": {
+            "nombre": {
+              "type": "string",
+              "title": "Nombre"
+            },
+            "especie": {
+              "type": "string",
+              "title": "Especie"
+            },
+            "raza": {
+              "title": "Raza",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sexo": {
+              "title": "Sexo",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "fecha_nacimiento": {
+              "title": "Fecha Nacimiento",
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "peso_kg": {
+              "title": "Peso Kg",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "color_mascota": {
+              "title": "Color Mascota",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "numero_chip": {
+              "title": "Numero Chip",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "foto_url": {
+              "title": "Foto Url",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "alergias": {
+              "title": "Alergias",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "condiciones_medicas": {
+              "title": "Condiciones Medicas",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "id_mascota": {
+              "type": "integer",
+              "title": "Id Mascota"
+            },
+            "id_usuario": {
+              "type": "integer",
+              "title": "Id Usuario"
+            },
+            "activo": {
+              "type": "boolean",
+              "title": "Activo"
+            }
+          },
+          "required": [
+            "nombre",
+            "especie",
+            "id_mascota",
+            "id_usuario",
+            "activo"
+          ]
+        }
+      }
+order: 1000

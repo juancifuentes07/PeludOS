@@ -1,0 +1,35 @@
+$kind: http-request
+description: Cancela una cita (cambia su estado a 'cancelada'). No hay borrado físico.
+url: "{{baseUrl}}/citas/:id_cita"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: id_cita
+    value: "7218"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Cita",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Cancel Cita.resources/examples
+order: 3000

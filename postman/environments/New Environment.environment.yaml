@@ -1,0 +1,8 @@
+name: New Environment
+values:
+  - key: base_url
+    value: ''
+  - key: token
+    secret: true
+  - key: baseUrl
+    value: ''

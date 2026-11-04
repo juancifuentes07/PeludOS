@@ -1,0 +1,139 @@
+$kind: http-request
+description: Registra un nuevo medicamento para una mascota del usuario autenticado.
+url: "{{baseUrl}}/mascotas/:id_mascota/medicamentos/"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: id_mascota
+    value: "1"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Mascota",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: json
+  content: |-
+    {
+      "id_mascota": 1,
+      "nombre_medicamento": "Amoxicilina",
+      "fecha_inicio": "2026-09-26",
+      "id_recordatorio": null,
+      "dosis": "250mg",
+      "unidad_medida": "mg",
+      "frecuencia_administracion": "Cada 8 horas",
+      "fecha_fin": null,
+      "observaciones": null
+    }
+  $type: |-
+    {
+      "title": "MedicamentoCreate",
+      "type": "object",
+      "properties": {
+        "id_mascota": {
+          "type": "integer",
+          "title": "Id Mascota"
+        },
+        "id_recordatorio": {
+          "title": "Id Recordatorio",
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nombre_medicamento": {
+          "type": "string",
+          "title": "Nombre Medicamento"
+        },
+        "dosis": {
+          "title": "Dosis",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unidad_medida": {
+          "title": "Unidad Medida",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "frecuencia_administracion": {
+          "title": "Frecuencia Administracion",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fecha_inicio": {
+          "type": "string",
+          "title": "Fecha Inicio",
+          "format": "date"
+        },
+        "fecha_fin": {
+          "title": "Fecha Fin",
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "observaciones": {
+          "title": "Observaciones",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id_mascota",
+        "nombre_medicamento",
+        "fecha_inicio"
+      ]
+    }
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+settings: {}
+examples: ./.resources/Create New Medicamento.resources/examples
+order: 2000

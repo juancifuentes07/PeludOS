@@ -1,0 +1,34 @@
+$kind: http-request
+description: Lista los medicamentos activos de una mascota del usuario autenticado.
+url: "{{baseUrl}}/mascotas/:id_mascota/medicamentos/"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: id_mascota
+    value: "1"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Mascota",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+auth:
+  type: bearer
+  credentials:
+    token: '{{token}}'
+settings: {}
+examples: ./.resources/Read Medicamentos.resources/examples
+order: 1000

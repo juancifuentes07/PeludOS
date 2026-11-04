@@ -1,0 +1,101 @@
+$kind: http-request
+description: Registra una nueva veterinaria. Requiere rol admin.
+url: "{{baseUrl}}/veterinarias/"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nombre_comercial": "string",
+      "direccion": "string",
+      "telefono": "string",
+      "correo_electronico": null,
+      "horario_atencion": "string",
+      "latitud": null,
+      "longitud": null
+    }
+  $type: |-
+    {
+      "title": "VeterinariaCreate",
+      "type": "object",
+      "properties": {
+        "nombre_comercial": {
+          "type": "string",
+          "title": "Nombre Comercial"
+        },
+        "direccion": {
+          "type": "string",
+          "title": "Direccion"
+        },
+        "telefono": {
+          "type": "string",
+          "title": "Telefono"
+        },
+        "correo_electronico": {
+          "title": "Correo Electronico",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "horario_atencion": {
+          "title": "Horario Atencion",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "latitud": {
+          "title": "Latitud",
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "longitud": {
+          "title": "Longitud",
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "nombre_comercial",
+        "direccion",
+        "telefono"
+      ]
+    }
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Create New Veterinaria.resources/examples
+order: 2000

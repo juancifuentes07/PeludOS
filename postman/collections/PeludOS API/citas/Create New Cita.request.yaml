@@ -1,0 +1,75 @@
+$kind: http-request
+description: |-
+  Agenda una nueva cita veterinaria para una mascota del usuario autenticado.
+  Valida que la mascota sea del usuario, que la veterinaria exista y esté activa,
+  y que el profesional pertenezca a esa veterinaria.
+url: "{{baseUrl}}/citas/"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "id_mascota": 2195,
+      "id_profesional": 3459,
+      "id_veterinaria": 8578,
+      "fecha_cita": "1963-05-31T01:22:41.544Z",
+      "motivo": "string",
+      "notas": null
+    }
+  $type: |-
+    {
+      "title": "CitaVeterinariaCreate",
+      "type": "object",
+      "properties": {
+        "id_mascota": {
+          "type": "integer",
+          "title": "Id Mascota"
+        },
+        "id_profesional": {
+          "type": "integer",
+          "title": "Id Profesional"
+        },
+        "id_veterinaria": {
+          "type": "integer",
+          "title": "Id Veterinaria"
+        },
+        "fecha_cita": {
+          "type": "string",
+          "title": "Fecha Cita",
+          "format": "date-time"
+        },
+        "motivo": {
+          "type": "string",
+          "title": "Motivo"
+        },
+        "notas": {
+          "title": "Notas",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id_mascota",
+        "id_profesional",
+        "id_veterinaria",
+        "fecha_cita",
+        "motivo"
+      ]
+    }
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Create New Cita.resources/examples
+order: 2000

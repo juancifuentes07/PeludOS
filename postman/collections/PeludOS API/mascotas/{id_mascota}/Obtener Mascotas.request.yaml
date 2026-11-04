@@ -1,0 +1,9 @@
+$kind: http-request
+description: ""
+url: "{{base_url}}/mascotas"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+order: 3000

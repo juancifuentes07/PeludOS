@@ -1,0 +1,52 @@
+$kind: http-request
+description: Desactiva (soft delete) un medicamento.
+url: "{{baseUrl}}/mascotas/:id_mascota/medicamentos/:id_medicamento"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: id_mascota
+    value: "8533"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Mascota",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+  - key: id_medicamento
+    value: "9251"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Medicamento",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Deactivate Medicamento.resources/examples
+order: 3000

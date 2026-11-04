@@ -1,0 +1,35 @@
+$kind: http-request
+description: Lista los profesionales activos de una veterinaria.
+url: "{{baseUrl}}/veterinarias/:id_veterinaria/profesionales/"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: id_veterinaria
+    value: "1327"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Veterinaria",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Read Profesionales.resources/examples
+order: 1000

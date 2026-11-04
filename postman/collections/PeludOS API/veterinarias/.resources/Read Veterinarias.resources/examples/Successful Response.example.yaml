@@ -1,0 +1,135 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/veterinarias/"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "nombre_comercial": "string",
+          "direccion": "string",
+          "telefono": "string",
+          "id_veterinaria": 281,
+          "calificacion_promedio": "string",
+          "activo": false,
+          "correo_electronico": "string",
+          "horario_atencion": "string",
+          "latitud": "string",
+          "longitud": "string"
+        },
+        {
+          "nombre_comercial": "string",
+          "direccion": "string",
+          "telefono": "string",
+          "id_veterinaria": 1739,
+          "calificacion_promedio": "string",
+          "activo": true,
+          "correo_electronico": "string",
+          "horario_atencion": "string",
+          "latitud": "string",
+          "longitud": "string"
+        }
+      ]
+    $type: |-
+      {
+        "type": "array",
+        "title": "Response Read Veterinarias Veterinarias  Get",
+        "items": {
+          "title": "VeterinariaResponse",
+          "type": "object",
+          "properties": {
+            "nombre_comercial": {
+              "type": "string",
+              "title": "Nombre Comercial"
+            },
+            "direccion": {
+              "type": "string",
+              "title": "Direccion"
+            },
+            "telefono": {
+              "type": "string",
+              "title": "Telefono"
+            },
+            "correo_electronico": {
+              "title": "Correo Electronico",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "horario_atencion": {
+              "title": "Horario Atencion",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "latitud": {
+              "title": "Latitud",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "longitud": {
+              "title": "Longitud",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "id_veterinaria": {
+              "type": "integer",
+              "title": "Id Veterinaria"
+            },
+            "calificacion_promedio": {
+              "type": "string",
+              "title": "Calificacion Promedio"
+            },
+            "activo": {
+              "type": "boolean",
+              "title": "Activo"
+            }
+          },
+          "required": [
+            "nombre_comercial",
+            "direccion",
+            "telefono",
+            "id_veterinaria",
+            "calificacion_promedio",
+            "activo"
+          ]
+        }
+      }
+order: 1000

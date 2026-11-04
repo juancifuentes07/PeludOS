@@ -1,0 +1,22 @@
+$kind: http-request
+description: |-
+  Autentica a un usuario y devuelve un token JWT.
+  Usa OAuth2PasswordRequestForm: espera 'username' y 'password' (form-data),
+  donde 'username' será el correo electrónico.
+url: "{{baseUrl}}/auth/login"
+method: POST
+headers:
+  Content-Type: application/x-www-form-urlencoded
+  Accept: application/json
+body:
+  type: urlencoded
+  content:
+    username: string
+    password: string
+    grant_type: password
+    scope: ""
+    client_id: string
+    client_secret: string
+settings: {}
+examples: ./.resources/Login.resources/examples
+order: 1000

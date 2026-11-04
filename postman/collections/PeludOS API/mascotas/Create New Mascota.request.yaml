@@ -1,0 +1,155 @@
+$kind: http-request
+description: |-
+  Registra una nueva mascota a nombre del usuario autenticado.
+  Valida que el número de chip no esté registrado previamente.
+url: "{{baseUrl}}/mascotas/"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "string",
+      "especie": "string",
+      "raza": "string",
+      "sexo": "string",
+      "fecha_nacimiento": null,
+      "peso_kg": null,
+      "color_mascota": null,
+      "numero_chip": null,
+      "foto_url": null,
+      "alergias": null,
+      "condiciones_medicas": "string"
+    }
+  $type: |-
+    {
+      "title": "MascotaCreate",
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string",
+          "title": "Nombre"
+        },
+        "especie": {
+          "type": "string",
+          "title": "Especie"
+        },
+        "raza": {
+          "title": "Raza",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sexo": {
+          "title": "Sexo",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fecha_nacimiento": {
+          "title": "Fecha Nacimiento",
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "peso_kg": {
+          "title": "Peso Kg",
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "color_mascota": {
+          "title": "Color Mascota",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "numero_chip": {
+          "title": "Numero Chip",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "foto_url": {
+          "title": "Foto Url",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "alergias": {
+          "title": "Alergias",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "condiciones_medicas": {
+          "title": "Condiciones Medicas",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "nombre",
+        "especie"
+      ]
+    }
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Create New Mascota.resources/examples
+order: 2000

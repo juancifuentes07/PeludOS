@@ -1,0 +1,99 @@
+$kind: http-request
+description: |-
+  Actualiza una cita (actualización parcial).
+  AJUSTAR: por ahora el dueño puede modificar cualquier campo, incluido 'estado'.
+  Cuando el flujo de la veterinaria esté más maduro, considera restringir
+  el cambio de 'estado' a un rol específico (veterinaria/admin) y dejar
+  que el dueño solo edite motivo/fecha/notas mientras la cita siga 'programada'.
+url: "{{baseUrl}}/citas/:id_cita"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: id_cita
+    value: "7218"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Cita",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: json
+  content: |-
+    {
+      "fecha_cita": null,
+      "motivo": "string",
+      "estado": null,
+      "notas": null
+    }
+  $type: |-
+    {
+      "title": "CitaVeterinariaUpdate",
+      "type": "object",
+      "properties": {
+        "fecha_cita": {
+          "title": "Fecha Cita",
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "motivo": {
+          "title": "Motivo",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "estado": {
+          "title": "Estado",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "notas": {
+          "title": "Notas",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Update Existing Cita.resources/examples
+order: 2000

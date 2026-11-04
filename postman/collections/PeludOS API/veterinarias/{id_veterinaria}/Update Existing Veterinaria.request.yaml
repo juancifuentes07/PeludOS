@@ -1,0 +1,147 @@
+$kind: http-request
+description: Actualiza una veterinaria (actualización parcial). Requiere rol admin.
+url: "{{baseUrl}}/veterinarias/:id_veterinaria"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: id_veterinaria
+    value: "1327"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Veterinaria",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: json
+  content: |-
+    {
+      "nombre_comercial": null,
+      "direccion": null,
+      "telefono": "string",
+      "correo_electronico": "string",
+      "horario_atencion": null,
+      "latitud": 3707.569391581473,
+      "longitud": "string",
+      "activo": false
+    }
+  $type: |-
+    {
+      "title": "VeterinariaUpdate",
+      "type": "object",
+      "properties": {
+        "nombre_comercial": {
+          "title": "Nombre Comercial",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "direccion": {
+          "title": "Direccion",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "telefono": {
+          "title": "Telefono",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "correo_electronico": {
+          "title": "Correo Electronico",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "horario_atencion": {
+          "title": "Horario Atencion",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "latitud": {
+          "title": "Latitud",
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "longitud": {
+          "title": "Longitud",
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "activo": {
+          "title": "Activo",
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Update Existing Veterinaria.resources/examples
+order: 2000

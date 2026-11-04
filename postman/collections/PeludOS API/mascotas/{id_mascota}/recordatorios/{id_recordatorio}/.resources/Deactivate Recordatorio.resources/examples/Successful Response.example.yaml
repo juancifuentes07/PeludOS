@@ -1,0 +1,99 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/mascotas/:id_mascota/recordatorios/:id_recordatorio"
+  method: DELETE
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  pathVariables:
+    id_mascota: "8533"
+    id_recordatorio: "2154"
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id_mascota": 7316,
+        "titulo": "string",
+        "tipo": "string",
+        "fecha_programada": "1988-03-20T12:57:15.218Z",
+        "id_recordatorio": 4210,
+        "notificado": true,
+        "activo": false,
+        "fecha_creacion": "1985-10-05T02:30:24.956Z",
+        "descripcion": "string",
+        "frecuencia": "string",
+        "fecha_notificacion": "2007-09-06T18:39:58.251Z"
+      }
+    $type: |-
+      {
+        "title": "RecordatorioResponse",
+        "type": "object",
+        "properties": {
+          "id_mascota": {
+            "type": "integer",
+            "title": "Id Mascota"
+          },
+          "titulo": {
+            "type": "string",
+            "title": "Titulo"
+          },
+          "descripcion": {
+            "type": "string"
+          },
+          "tipo": {
+            "type": "string",
+            "title": "Tipo"
+          },
+          "fecha_programada": {
+            "type": "string",
+            "title": "Fecha Programada",
+            "format": "date-time"
+          },
+          "frecuencia": {
+            "type": "string"
+          },
+          "id_recordatorio": {
+            "type": "integer",
+            "title": "Id Recordatorio"
+          },
+          "notificado": {
+            "type": "boolean",
+            "title": "Notificado"
+          },
+          "fecha_notificacion": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "activo": {
+            "type": "boolean",
+            "title": "Activo"
+          },
+          "fecha_creacion": {
+            "type": "string",
+            "title": "Fecha Creacion",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id_mascota",
+          "titulo",
+          "tipo",
+          "fecha_programada",
+          "id_recordatorio",
+          "notificado",
+          "activo",
+          "fecha_creacion"
+        ]
+      }
+order: 1000

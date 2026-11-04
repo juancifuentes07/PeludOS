@@ -11,6 +11,12 @@ from app.models.mascota import Mascota  # Importamos los modelos para que Alembi
 from app.models.veterinaria import Veterinaria  # Importamos los modelos para que Alembic los detecte al autogenerar migraciones.
 from app.models.profesional import Profesional  # Importamos los modelos para que Alembic los detecte al autogenerar migraciones.
 from app.models.cita_veterinaria import CitaVeterinaria  # Importamos los modelos para que Alembic los detecte al autogenerar migraciones.
+from app.models.recordatorio import Recordatorio  # Importamos los modelos para que Alembic los detecte al autogenerar migraciones.
+from app.models.medicamento import Medicamento  # Importamos los modelos para que Alembic los detecte al autogenerar migraciones.
+from app.models.vacuna import Vacuna  # Importamos los modelos para que Alembic los detecte al autogenerar migraciones.
+from app.models.carrito import CarritoCompras, DetalleCarrito  # Importamos los modelos para que Alembic los detecte al autogenerar migraciones.
+from app.models.pedido import Pedido  # Importamos los modelos para que Alembic los detecte al autogenerar migraciones.
+from app.models.producto import Producto  # Importamos los modelos para que Alembic los detecte al autogenerar migraciones.
 
 # Importamos los modelos para que Alembic los detecte al autogenerar migraciones.
 # Por ahora no hay ninguno; los iremos agregando aquí en cada fase.

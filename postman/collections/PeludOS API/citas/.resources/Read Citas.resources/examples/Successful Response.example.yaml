@@ -1,0 +1,112 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/citas/"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id_mascota": 8053,
+          "id_profesional": 3968,
+          "id_veterinaria": 4452,
+          "fecha_cita": "1959-03-07T00:26:42.361Z",
+          "motivo": "string",
+          "id_cita": 8089,
+          "estado": "string",
+          "fecha_creacion": "1981-03-12T11:20:49.748Z",
+          "notas": "string"
+        },
+        {
+          "id_mascota": 9382,
+          "id_profesional": 8006,
+          "id_veterinaria": 6679,
+          "fecha_cita": "2002-05-12T00:23:40.728Z",
+          "motivo": "string",
+          "id_cita": 943,
+          "estado": "string",
+          "fecha_creacion": "2001-05-05T08:03:07.487Z",
+          "notas": "string"
+        }
+      ]
+    $type: |-
+      {
+        "type": "array",
+        "title": "Response Read Citas Citas  Get",
+        "items": {
+          "title": "CitaVeterinariaResponse",
+          "type": "object",
+          "properties": {
+            "id_mascota": {
+              "type": "integer",
+              "title": "Id Mascota"
+            },
+            "id_profesional": {
+              "type": "integer",
+              "title": "Id Profesional"
+            },
+            "id_veterinaria": {
+              "type": "integer",
+              "title": "Id Veterinaria"
+            },
+            "fecha_cita": {
+              "type": "string",
+              "title": "Fecha Cita",
+              "format": "date-time"
+            },
+            "motivo": {
+              "type": "string",
+              "title": "Motivo"
+            },
+            "notas": {
+              "title": "Notas",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "id_cita": {
+              "type": "integer",
+              "title": "Id Cita"
+            },
+            "estado": {
+              "type": "string",
+              "title": "Estado"
+            },
+            "fecha_creacion": {
+              "type": "string",
+              "title": "Fecha Creacion",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id_mascota",
+            "id_profesional",
+            "id_veterinaria",
+            "fecha_cita",
+            "motivo",
+            "id_cita",
+            "estado",
+            "fecha_creacion"
+          ]
+        }
+      }
+order: 1000

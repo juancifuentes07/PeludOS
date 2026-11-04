@@ -1,0 +1,35 @@
+$kind: http-request
+description: Devuelve el detalle de una mascota del usuario autenticado.
+url: "{{baseUrl}}/mascotas/:id_mascota"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: id_mascota
+    value: "8533"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Mascota",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Read Mascota.resources/examples
+order: 1000

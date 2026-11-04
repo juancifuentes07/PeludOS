@@ -1,0 +1,93 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/usuarios/me"
+  method: PATCH
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  body:
+    type: json
+    content: |-
+      {
+        "nombre_completo": "string",
+        "telefono": null,
+        "direccion": "string"
+      }
+response:
+  statusCode: 422
+  statusText: Unprocessable Entity (WebDAV) (RFC 4918)
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "detail": [
+          {
+            "loc": [
+              "string",
+              531
+            ],
+            "msg": "string",
+            "type": "string"
+          },
+          {
+            "loc": [
+              948,
+              "string"
+            ],
+            "msg": "string",
+            "type": "string"
+          }
+        ]
+      }
+    $type: |-
+      {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "type": "array",
+            "title": "Detail",
+            "items": {
+              "title": "ValidationError",
+              "type": "object",
+              "properties": {
+                "loc": {
+                  "type": "array",
+                  "title": "Location",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "integer"
+                      }
+                    ]
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "type": {
+                  "type": "string",
+                  "title": "Error Type"
+                }
+              },
+              "required": [
+                "loc",
+                "msg",
+                "type"
+              ]
+            }
+          }
+        }
+      }
+order: 2000

@@ -1,0 +1,104 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/mascotas/:id_mascota/medicamentos/"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  pathVariables:
+    id_mascota: "8533"
+  body:
+    type: json
+    content: |-
+      {
+        "id_mascota": 9094,
+        "nombre_medicamento": "string",
+        "fecha_inicio": "1959-12-17",
+        "id_recordatorio": 2155,
+        "dosis": "string",
+        "unidad_medida": "string",
+        "frecuencia_administracion": null,
+        "fecha_fin": null,
+        "observaciones": null
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id_mascota": 5236,
+        "nombre_medicamento": "string",
+        "fecha_inicio": "1948-04-11",
+        "id_medicamento": 8264,
+        "activo": false,
+        "id_recordatorio": 3072,
+        "dosis": "string",
+        "unidad_medida": "string",
+        "frecuencia_administracion": "string",
+        "fecha_fin": "1947-11-13",
+        "observaciones": "string"
+      }
+    $type: |-
+      {
+        "title": "MedicamentoResponse",
+        "type": "object",
+        "properties": {
+          "id_mascota": {
+            "type": "integer",
+            "title": "Id Mascota"
+          },
+          "id_recordatorio": {
+            "type": "integer"
+          },
+          "nombre_medicamento": {
+            "type": "string",
+            "title": "Nombre Medicamento"
+          },
+          "dosis": {
+            "type": "string"
+          },
+          "unidad_medida": {
+            "type": "string"
+          },
+          "frecuencia_administracion": {
+            "type": "string"
+          },
+          "fecha_inicio": {
+            "type": "string",
+            "title": "Fecha Inicio",
+            "format": "date"
+          },
+          "fecha_fin": {
+            "type": "string",
+            "format": "date"
+          },
+          "observaciones": {
+            "type": "string"
+          },
+          "id_medicamento": {
+            "type": "integer",
+            "title": "Id Medicamento"
+          },
+          "activo": {
+            "type": "boolean",
+            "title": "Activo"
+          }
+        },
+        "required": [
+          "id_mascota",
+          "nombre_medicamento",
+          "fecha_inicio",
+          "id_medicamento",
+          "activo"
+        ]
+      }
+order: 1000

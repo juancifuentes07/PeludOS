@@ -1,0 +1,52 @@
+$kind: http-request
+description: Desactiva (soft delete) un profesional. Requiere rol admin.
+url: "{{baseUrl}}/veterinarias/:id_veterinaria/profesionales/:id_profesional"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: id_veterinaria
+    value: "1327"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Veterinaria",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+  - key: id_profesional
+    value: "8683"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Profesional",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Deactivate Profesional.resources/examples
+order: 2000

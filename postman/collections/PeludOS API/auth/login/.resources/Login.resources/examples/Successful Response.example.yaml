@@ -1,0 +1,48 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/auth/login"
+  method: POST
+  headers:
+    Content-Type: application/x-www-form-urlencoded
+    Accept: application/json
+  body:
+    type: urlencoded
+    content:
+      username: string
+      password: string
+      grant_type: password
+      scope: ""
+      client_id: string
+      client_secret: string
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "access_token": "string",
+        "token_type": "bearer"
+      }
+    $type: |-
+      {
+        "description": "Lo que se devuelve tras un login exitoso.",
+        "title": "Token",
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type"
+          }
+        },
+        "required": [
+          "access_token"
+        ]
+      }
+order: 1000

@@ -1,0 +1,70 @@
+$kind: http-request
+description: |-
+  Registra un nuevo usuario.
+  Valida que el correo no esté ya registrado antes de crear.
+url: "{{baseUrl}}/auth/register"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nombre_completo": "string",
+      "correo_electronico": "oenf5xkgtKa3T@LKvsmTdYYHwIThIemMNlQKfDCwIaCSW.pnt",
+      "contrasena": "string",
+      "telefono": "string",
+      "direccion": "string"
+    }
+  $type: |-
+    {
+      "description": "Lo que se recibe al registrar un usuario (incluye password en texto plano, solo de entrada).",
+      "title": "UsuarioCreate",
+      "type": "object",
+      "properties": {
+        "nombre_completo": {
+          "type": "string",
+          "title": "Nombre Completo"
+        },
+        "correo_electronico": {
+          "type": "string",
+          "title": "Correo Electronico",
+          "format": "email"
+        },
+        "telefono": {
+          "title": "Telefono",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "direccion": {
+          "title": "Direccion",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "contrasena": {
+          "type": "string",
+          "title": "Contrasena"
+        }
+      },
+      "required": [
+        "nombre_completo",
+        "correo_electronico",
+        "contrasena"
+      ]
+    }
+settings: {}
+examples: ./.resources/Register.resources/examples
+order: 1000

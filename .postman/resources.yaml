@@ -1,0 +1,8 @@
+workspace:
+  id: c10586f4-fd47-4378-817b-3031779f572f
+localResources:
+  specs:
+    - ../postman/specs/PeludOS API/index.json
+resourceNameMappings:
+  specs:
+    - ../postman/specs/PeludOS API/index.json: PeludOS API

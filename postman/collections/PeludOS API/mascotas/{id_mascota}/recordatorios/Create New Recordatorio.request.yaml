@@ -1,0 +1,96 @@
+$kind: http-request
+description: Crea un nuevo recordatorio para una mascota del usuario autenticado.
+url: "{{baseUrl}}/mascotas/:id_mascota/recordatorios/"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: id_mascota
+    value: "8533"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Id Mascota",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: json
+  content: |-
+    {
+      "id_mascota": 6804,
+      "titulo": "string",
+      "tipo": "string",
+      "fecha_programada": "2017-02-22T16:35:08.047Z",
+      "descripcion": null,
+      "frecuencia": null
+    }
+  $type: |-
+    {
+      "title": "RecordatorioCreate",
+      "type": "object",
+      "properties": {
+        "id_mascota": {
+          "type": "integer",
+          "title": "Id Mascota"
+        },
+        "titulo": {
+          "type": "string",
+          "title": "Titulo"
+        },
+        "descripcion": {
+          "title": "Descripcion",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tipo": {
+          "type": "string",
+          "title": "Tipo"
+        },
+        "fecha_programada": {
+          "type": "string",
+          "title": "Fecha Programada",
+          "format": "date-time"
+        },
+        "frecuencia": {
+          "title": "Frecuencia",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id_mascota",
+        "titulo",
+        "tipo",
+        "fecha_programada"
+      ]
+    }
+auth:
+  type: oauth2
+  credentials:
+    accessTokenUrl: auth/login
+    grant_type: password_credentials
+settings: {}
+examples: ./.resources/Create New Recordatorio.resources/examples
+order: 2000

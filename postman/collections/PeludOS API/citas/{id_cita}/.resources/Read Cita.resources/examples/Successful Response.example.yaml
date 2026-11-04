@@ -1,0 +1,89 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/citas/:id_cita"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  pathVariables:
+    id_cita: "7218"
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id_mascota": 1923,
+        "id_profesional": 9961,
+        "id_veterinaria": 4338,
+        "fecha_cita": "1964-06-03T20:10:36.282Z",
+        "motivo": "string",
+        "id_cita": 6123,
+        "estado": "string",
+        "fecha_creacion": "2009-10-26T00:11:52.621Z",
+        "notas": "string"
+      }
+    $type: |-
+      {
+        "title": "CitaVeterinariaResponse",
+        "type": "object",
+        "properties": {
+          "id_mascota": {
+            "type": "integer",
+            "title": "Id Mascota"
+          },
+          "id_profesional": {
+            "type": "integer",
+            "title": "Id Profesional"
+          },
+          "id_veterinaria": {
+            "type": "integer",
+            "title": "Id Veterinaria"
+          },
+          "fecha_cita": {
+            "type": "string",
+            "title": "Fecha Cita",
+            "format": "date-time"
+          },
+          "motivo": {
+            "type": "string",
+            "title": "Motivo"
+          },
+          "notas": {
+            "type": "string"
+          },
+          "id_cita": {
+            "type": "integer",
+            "title": "Id Cita"
+          },
+          "estado": {
+            "type": "string",
+            "title": "Estado"
+          },
+          "fecha_creacion": {
+            "type": "string",
+            "title": "Fecha Creacion",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id_mascota",
+          "id_profesional",
+          "id_veterinaria",
+          "fecha_cita",
+          "motivo",
+          "id_cita",
+          "estado",
+          "fecha_creacion"
+        ]
+      }
+order: 1000

@@ -1,0 +1,96 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/veterinarias/"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  body:
+    type: json
+    content: |-
+      {
+        "nombre_comercial": "string",
+        "direccion": "string",
+        "telefono": "string",
+        "correo_electronico": null,
+        "horario_atencion": "string",
+        "latitud": null,
+        "longitud": null
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "nombre_comercial": "string",
+        "direccion": "string",
+        "telefono": "string",
+        "id_veterinaria": 5254,
+        "calificacion_promedio": "string",
+        "activo": false,
+        "correo_electronico": "string",
+        "horario_atencion": "string",
+        "latitud": "string",
+        "longitud": "string"
+      }
+    $type: |-
+      {
+        "title": "VeterinariaResponse",
+        "type": "object",
+        "properties": {
+          "nombre_comercial": {
+            "type": "string",
+            "title": "Nombre Comercial"
+          },
+          "direccion": {
+            "type": "string",
+            "title": "Direccion"
+          },
+          "telefono": {
+            "type": "string",
+            "title": "Telefono"
+          },
+          "correo_electronico": {
+            "type": "string"
+          },
+          "horario_atencion": {
+            "type": "string"
+          },
+          "latitud": {
+            "type": "string"
+          },
+          "longitud": {
+            "type": "string"
+          },
+          "id_veterinaria": {
+            "type": "integer",
+            "title": "Id Veterinaria"
+          },
+          "calificacion_promedio": {
+            "type": "string",
+            "title": "Calificacion Promedio"
+          },
+          "activo": {
+            "type": "boolean",
+            "title": "Activo"
+          }
+        },
+        "required": [
+          "nombre_comercial",
+          "direccion",
+          "telefono",
+          "id_veterinaria",
+          "calificacion_promedio",
+          "activo"
+        ]
+      }
+order: 1000
