@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -7,6 +8,7 @@ from app.database import get_db
 from app.models.usuario import Usuario
 from app.models.cita_veterinaria import CitaVeterinaria
 from app.schemas.cita_veterinaria import (
+    CitaEstadoUpdate,
     CitaVeterinariaCreate,
     CitaVeterinariaResponse,
     CitaVeterinariaUpdate,
@@ -20,17 +22,40 @@ from app.crud.cita_veterinaria import (
     create_cita,
     update_cita,
     cancelar_cita,
+    cambiar_estado_cita,
 )
-from app.core.security import get_current_user
+from app.core.security import get_current_user, require_admin
 
 router = APIRouter(prefix="/citas", tags=["Citas Veterinarias"])
+
+
+def _cita_to_response(cita: CitaVeterinaria) -> CitaVeterinariaResponse:
+    """Arma la respuesta de una cita incluyendo los nombres de mascota, veterinaria y profesional."""
+    respuesta = CitaVeterinariaResponse.model_validate(cita)
+    respuesta.nombre_mascota = cita.mascota.nombre
+    respuesta.nombre_veterinaria = cita.veterinaria.nombre_comercial
+    respuesta.nombre_profesional = cita.profesional.nombre_completo
+    return respuesta
+
+
+def _validar_fecha_futura(fecha: datetime) -> None:
+    """
+    Rechaza fechas en el pasado. Si la fecha llega sin zona horaria se asume UTC,
+    así que el front debe mandarla en formato ISO con zona (toISOString() ya lo hace).
+    """
+    if fecha.tzinfo is None:
+        fecha = fecha.replace(tzinfo=timezone.utc)
+    if fecha <= datetime.now(timezone.utc):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="La fecha de la cita debe ser futura",
+        )
 
 
 def _get_cita_propia(db: Session, id_cita: int, usuario_actual: Usuario) -> CitaVeterinaria:
     """
     Obtiene una cita validando que la mascota asociada pertenezca al usuario autenticado,
-    o que el usuario sea admin. Responde 404 si no existe o no le pertenece, para no
-    revelar la existencia de citas ajenas.
+    o que el usuario sea admin. Responde 404 si no existe o no le pertenece.
     """
     cita = get_cita_by_id(db, id_cita)
     if cita is None:
@@ -47,10 +72,8 @@ def read_citas(
     usuario_actual: Usuario = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """
-    Lista las citas de las mascotas del usuario autenticado.
-    """
-    return get_citas_by_usuario(db, usuario_actual.id_usuario)
+    """Lista las citas de las mascotas del usuario autenticado."""
+    return [_cita_to_response(c) for c in get_citas_by_usuario(db, usuario_actual.id_usuario)]
 
 
 @router.post("/", response_model=CitaVeterinariaResponse, status_code=status.HTTP_201_CREATED)
@@ -60,10 +83,12 @@ def create_new_cita(
     db: Session = Depends(get_db),
 ):
     """
-    Agenda una nueva cita veterinaria para una mascota del usuario autenticado.
-    Valida que la mascota sea del usuario, que la veterinaria exista y esté activa,
-    y que el profesional pertenezca a esa veterinaria.
+    Agenda una nueva cita para una mascota del usuario autenticado. Valida que la
+    fecha sea futura, que la mascota sea del usuario, que la veterinaria exista y
+    esté activa, y que el profesional pertenezca a esa veterinaria.
     """
+    _validar_fecha_futura(cita_data.fecha_cita)
+
     mascota = get_mascota_by_id(db, cita_data.id_mascota)
     if mascota is None or mascota.id_usuario != usuario_actual.id_usuario:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Mascota no encontrada")
@@ -79,7 +104,7 @@ def create_new_cita(
             detail="El profesional no pertenece a la veterinaria indicada",
         )
 
-    return create_cita(db, cita_data)
+    return _cita_to_response(create_cita(db, cita_data))
 
 
 @router.get("/{id_cita}", response_model=CitaVeterinariaResponse)
@@ -88,10 +113,8 @@ def read_cita(
     usuario_actual: Usuario = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """
-    Devuelve el detalle de una cita del usuario autenticado (o de cualquiera, si es admin).
-    """
-    return _get_cita_propia(db, id_cita, usuario_actual)
+    """Devuelve el detalle de una cita del usuario autenticado (o de cualquiera, si es admin)."""
+    return _cita_to_response(_get_cita_propia(db, id_cita, usuario_actual))
 
 
 @router.patch("/{id_cita}", response_model=CitaVeterinariaResponse)
@@ -102,14 +125,33 @@ def update_existing_cita(
     db: Session = Depends(get_db),
 ):
     """
-    Actualiza una cita (actualización parcial).
-    AJUSTAR: por ahora el dueño puede modificar cualquier campo, incluido 'estado'.
-    Cuando el flujo de la veterinaria esté más maduro, considera restringir
-    el cambio de 'estado' a un rol específico (veterinaria/admin) y dejar
-    que el dueño solo edite motivo/fecha/notas mientras la cita siga 'programada'.
+    Edita motivo, fecha o notas de una cita, solo mientras siga 'programada'.
+    El estado no se cambia aquí: para cancelar está el DELETE, y el cambio
+    administrativo de estado vive en PATCH /citas/{id}/estado.
     """
     cita = _get_cita_propia(db, id_cita, usuario_actual)
-    return update_cita(db, cita, cita_data)
+    if cita.estado != "programada":
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Solo se pueden editar citas en estado 'programada'",
+        )
+    if cita_data.fecha_cita is not None:
+        _validar_fecha_futura(cita_data.fecha_cita)
+    return _cita_to_response(update_cita(db, cita, cita_data))
+
+
+@router.patch("/{id_cita}/estado", response_model=CitaVeterinariaResponse)
+def update_estado_cita(
+    id_cita: int,
+    estado_data: CitaEstadoUpdate,
+    usuario_actual: Usuario = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    """Cambia el estado de una cita (ej. 'confirmada', 'completada'). Requiere rol admin."""
+    cita = get_cita_by_id(db, id_cita)
+    if cita is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cita no encontrada")
+    return _cita_to_response(cambiar_estado_cita(db, cita, estado_data.estado))
 
 
 @router.delete("/{id_cita}", response_model=CitaVeterinariaResponse)
@@ -118,8 +160,6 @@ def cancel_cita(
     usuario_actual: Usuario = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """
-    Cancela una cita (cambia su estado a 'cancelada'). No hay borrado físico.
-    """
+    """Cancela una cita (cambia su estado a 'cancelada'). No hay borrado físico."""
     cita = _get_cita_propia(db, id_cita, usuario_actual)
-    return cancelar_cita(db, cita)
+    return _cita_to_response(cancelar_cita(db, cita))

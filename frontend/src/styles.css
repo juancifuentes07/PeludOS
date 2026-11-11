@@ -1,0 +1,219 @@
+:root {
+  --azul-900: #0b2447;
+  --azul-700: #1e40af;
+  --azul-600: #1d4ed8;
+  --azul-500: #2563eb;
+  --azul-100: #dbeafe;
+  --azul-50: #eff6ff;
+  --fondo: #f3f7fd;
+  --superficie: #ffffff;
+  --borde: #d3dff0;
+  --texto: #0f1f38;
+  --texto-suave: #5a6b85;
+  --error: #b42318;
+  --error-fondo: #fef3f2;
+  --radio: 10px;
+  --sombra: 0 1px 2px rgba(11, 36, 71, 0.06), 0 4px 16px rgba(11, 36, 71, 0.08);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  margin: 0 0 0.5rem;
+  color: var(--azul-900);
+  line-height: 1.25;
+}
+
+p { margin: 0 0 0.75rem; }
+
+.texto-suave { color: var(--texto-suave); }
+
+/* Estructura */
+.contenedor {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--azul-900);
+  color: #ffffff;
+}
+
+.topbar .marca {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.tarjeta {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 1.5rem;
+}
+
+/* Pantallas de acceso (login y registro) */
+.pagina-auth {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: linear-gradient(160deg, var(--azul-50) 0%, var(--azul-100) 100%);
+}
+
+.tarjeta-auth {
+  width: 100%;
+  max-width: 380px;
+}
+
+.marca-grande {
+  font-size: 2rem;
+  color: var(--azul-600);
+  margin-bottom: 0.25rem;
+}
+
+/* Formularios */
+.formulario {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.campo {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--azul-900);
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--texto);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--azul-500);
+  outline-offset: 1px;
+  border-color: var(--azul-500);
+}
+
+/* Botones */
+.btn {
+  font: inherit;
+  font-weight: 600;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-primario {
+  background: var(--azul-600);
+  color: #ffffff;
+}
+
+.btn-primario:hover:not(:disabled) {
+  background: var(--azul-700);
+}
+
+.btn-secundario {
+  background: var(--azul-50);
+  color: var(--azul-700);
+  border-color: var(--azul-100);
+}
+
+.btn-secundario:hover:not(:disabled) {
+  background: var(--azul-100);
+}
+
+.btn-fantasma {
+  background: transparent;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-fantasma:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Mensajes */
+.alerta-error {
+  margin: 0;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  background: var(--error-fondo);
+  color: var(--error);
+  font-size: 0.9rem;
+}
+/* ---- Navegación y enlaces ---- */
+a:not(.btn) { color: var(--azul-600); }
+a:not(.btn):hover { color: var(--azul-700); }
+a.btn { display: inline-block; text-decoration: none; }
+
+.topbar-izq { display: flex; align-items: center; gap: 2rem; }
+.nav { display: flex; gap: 0.25rem; }
+.nav a { color: rgba(255, 255, 255, 0.75); text-decoration: none; padding: 0.4rem 0.75rem; border-radius: 8px; font-weight: 600; }
+.nav a:hover { color: #ffffff; background: rgba(255, 255, 255, 0.1); }
+.nav a.activo { color: #ffffff; background: var(--azul-700); }
+
+.enlace-auth { margin: 1rem 0 0; font-size: 0.9rem; text-align: center; }
+.tarjeta-auth-ancha { max-width: 480px; }
+
+/* ---- Páginas y formularios ---- */
+.encabezado-pagina { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+.fila-campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.acciones { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+.btn-peligro { background: var(--error-fondo); color: var(--error); border-color: #fbd5d1; }
+.btn-peligro:hover:not(:disabled) { background: #fde0dd; }
+
+/* ---- Tarjetas de mascotas ---- */
+.grid-tarjetas { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin-top: 1.25rem; }
+.tarjeta-mascota { display: flex; flex-direction: column; gap: 0.5rem; }
+.mascota-cabecera { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.mascota-cabecera h3 { margin: 0; }
+.etiqueta { background: var(--azul-100); color: var(--azul-700); padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
+.datos { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.25rem; font-size: 0.92rem; }
+.datos .rotulo { color: var(--texto-suave); }
+.vacio { text-align: center; margin-top: 1.25rem; }
+/* ---- Veterinarias y citas ---- */
+.profesionales { border-top: 1px solid var(--borde); padding-top: 0.75rem; }
+.profesionales h4 { margin: 0 0 0.5rem; color: var(--azul-900); font-size: 0.95rem; }
+.tarjeta-inactiva { opacity: 0.75; }
+.etiqueta { text-transform: capitalize; }
+.etiqueta.estado-programada { background: var(--azul-100); color: var(--azul-700); }
+.etiqueta.estado-confirmada { background: var(--azul-600); color: #ffffff; }
+.etiqueta.estado-completada { background: #e2e8f0; color: #334155; }
+.etiqueta.estado-cancelada { background: var(--error-fondo); color: var(--error); }

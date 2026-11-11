@@ -1,4 +1,3 @@
-from decimal import Decimal
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -6,9 +5,21 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models.usuario import Usuario
-from app.schemas.pedido import PedidoCreate, PedidoResponse, PedidoUpdate
-from app.crud.carrito import get_carrito_activo, finalizar_carrito
-from app.crud.pedido import get_pedido_by_id, get_pedidos_by_usuario, create_pedido, update_pedido
+from app.schemas.pedido import (
+    PedidoCreate,
+    PedidoDetalleResponse,
+    PedidoItemResponse,
+    PedidoResponse,
+    PedidoUpdate,
+)
+from app.crud.carrito import get_carrito_activo
+from app.crud.pedido import (
+    get_pedido_by_id,
+    get_pedidos_by_usuario,
+    get_items_by_pedido,
+    crear_pedido_desde_carrito,
+    update_pedido,
+)
 from app.core.security import get_current_user, require_admin
 
 router = APIRouter(prefix="/pedidos", tags=["Pedidos"])
@@ -31,44 +42,48 @@ def checkout(
 ):
     """
     Genera un pedido a partir del carrito activo del usuario autenticado.
-    El total se calcula sumando los subtotales del carrito, nunca se recibe
-    del cliente. El carrito queda 'finalizado' y el usuario empieza uno
-    nuevo la próxima vez que agregue un producto.
+    Valida y descuenta el stock, calcula el total y finaliza el carrito, todo
+    en una sola transacción. Si falta stock responde 400 y no se guarda nada.
     """
     carrito = get_carrito_activo(db, usuario_actual.id_usuario)
     if carrito is None or not carrito.detalles:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="El carrito está vacío")
 
-    id_veterinaria = carrito.detalles[0].producto.id_veterinaria
-    total = sum((detalle.subtotal for detalle in carrito.detalles), Decimal("0"))
-
-    nuevo_pedido = create_pedido(
-        db,
-        id_usuario=usuario_actual.id_usuario,
-        id_veterinaria=id_veterinaria,
-        id_carrito=carrito.id_carrito,
-        total=total,
-        direccion_entrega=pedido_data.direccion_entrega,
-        metodo_pago=pedido_data.metodo_pago,
-        notas=pedido_data.notas,
-    )
-    finalizar_carrito(db, carrito)
-    return nuevo_pedido
+    try:
+        return crear_pedido_desde_carrito(db, carrito, usuario_actual.id_usuario, pedido_data)
+    except ValueError as error:
+        db.rollback()
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(error))
 
 
-@router.get("/{id_pedido}", response_model=PedidoResponse)
+@router.get("/{id_pedido}", response_model=PedidoDetalleResponse)
 def read_pedido(
     id_pedido: int,
     usuario_actual: Usuario = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Devuelve el detalle de un pedido del usuario autenticado (o de cualquiera, si es admin)."""
+    """
+    Devuelve el detalle de un pedido con sus productos. Disponible para el
+    dueño del pedido (o para cualquier admin).
+    """
     pedido = get_pedido_by_id(db, id_pedido)
     if pedido is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Pedido no encontrado")
     if usuario_actual.rol != "admin" and pedido.id_usuario != usuario_actual.id_usuario:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Pedido no encontrado")
-    return pedido
+
+    items = [
+        PedidoItemResponse(
+            id_producto=d.id_producto,
+            nombre_producto=d.producto.nombre_producto,
+            cantidad=d.cantidad,
+            precio_unitario=d.precio_unitario,
+            subtotal=d.subtotal,
+        )
+        for d in get_items_by_pedido(db, pedido)
+    ]
+    base = PedidoResponse.model_validate(pedido).model_dump()
+    return PedidoDetalleResponse(**base, items=items)
 
 
 @router.patch("/{id_pedido}", response_model=PedidoResponse)
@@ -80,9 +95,7 @@ def update_existing_pedido(
 ):
     """
     Actualiza el estado de un pedido (ej. 'confirmado', 'enviado', 'entregado').
-    Requiere rol admin: el cliente no puede cambiar el estado de su propio
-    pedido directamente. No hay DELETE en este módulo — los pedidos no se
-    borran, solo cambian de estado.
+    Requiere rol admin. No hay DELETE: los pedidos no se borran, solo cambian de estado.
     """
     pedido = get_pedido_by_id(db, id_pedido)
     if pedido is None:

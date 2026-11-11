@@ -54,3 +54,10 @@ def cancelar_cita(db: Session, cita: CitaVeterinaria) -> CitaVeterinaria:
     db.commit()
     db.refresh(cita)
     return cita
+
+def cambiar_estado_cita(db: Session, cita: CitaVeterinaria, estado: str) -> CitaVeterinaria:
+    """Cambia el estado de una cita (uso administrativo)."""
+    cita.estado = estado
+    db.commit()
+    db.refresh(cita)
+    return cita

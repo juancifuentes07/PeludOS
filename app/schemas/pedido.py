@@ -1,6 +1,6 @@
 from datetime import datetime
 from decimal import Decimal
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel, ConfigDict
 
@@ -31,3 +31,15 @@ class PedidoResponse(BaseModel):
     direccion_entrega: str
     notas: Optional[str] = None
     fecha_entrega: Optional[datetime] = None
+
+
+class PedidoItemResponse(BaseModel):
+    id_producto: int
+    nombre_producto: str
+    cantidad: int
+    precio_unitario: Decimal
+    subtotal: Decimal
+
+
+class PedidoDetalleResponse(PedidoResponse):
+    items: List[PedidoItemResponse] = []

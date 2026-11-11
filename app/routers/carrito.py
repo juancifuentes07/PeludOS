@@ -22,7 +22,18 @@ router = APIRouter(prefix="/carrito", tags=["Carrito de Compras"])
 
 def _build_carrito_response(carrito) -> CarritoResponse:
     """Arma la respuesta del carrito incluyendo sus líneas y el total calculado."""
-    detalles = [DetalleCarritoResponse.model_validate(d) for d in carrito.detalles]
+    detalles = [
+        DetalleCarritoResponse(
+            id_detalle_carrito=d.id_detalle_carrito,
+            id_producto=d.id_producto,
+            nombre_producto=d.producto.nombre_producto,
+            imagen_url=d.producto.imagen_url,
+            cantidad=d.cantidad,
+            precio_unitario=d.precio_unitario,
+            subtotal=d.subtotal,
+        )
+        for d in carrito.detalles
+    ]
     total = sum((d.subtotal for d in detalles), Decimal("0"))
     return CarritoResponse(
         id_carrito=carrito.id_carrito,

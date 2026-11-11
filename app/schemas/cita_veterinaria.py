@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, ConfigDict
 
@@ -20,8 +20,11 @@ class CitaVeterinariaCreate(CitaVeterinariaBase):
 class CitaVeterinariaUpdate(BaseModel):
     fecha_cita: Optional[datetime] = None
     motivo: Optional[str] = None
-    estado: Optional[str] = None
     notas: Optional[str] = None
+
+
+class CitaEstadoUpdate(BaseModel):
+    estado: Literal["programada", "confirmada", "completada", "cancelada"]
 
 
 class CitaVeterinariaResponse(CitaVeterinariaBase):
@@ -30,3 +33,6 @@ class CitaVeterinariaResponse(CitaVeterinariaBase):
     id_cita: int
     estado: str
     fecha_creacion: datetime
+    nombre_mascota: Optional[str] = None
+    nombre_veterinaria: Optional[str] = None
+    nombre_profesional: Optional[str] = None

@@ -1,8 +1,8 @@
 from datetime import datetime
 from decimal import Decimal
-from typing import List
+from typing import List, Optional
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 
 class AgregarItemCarrito(BaseModel):
@@ -15,10 +15,10 @@ class ActualizarItemCarrito(BaseModel):
 
 
 class DetalleCarritoResponse(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
     id_detalle_carrito: int
     id_producto: int
+    nombre_producto: str
+    imagen_url: Optional[str] = None
     cantidad: int
     precio_unitario: Decimal
     subtotal: Decimal
@@ -26,9 +26,8 @@ class DetalleCarritoResponse(BaseModel):
 
 class CarritoResponse(BaseModel):
     """
-    No hereda de un modelo con from_attributes porque 'total' no es una
-    columna real de CarritoCompras: se calcula sumando los subtotales
-    y se arma manualmente en el router (ver _build_carrito_response).
+    'total' no es una columna real de CarritoCompras: se calcula sumando
+    los subtotales y se arma manualmente en el router (_build_carrito_response).
     """
     id_carrito: int
     id_usuario: int
